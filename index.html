@@ -124,6 +124,102 @@
       transform: translateY(-2px);
       box-shadow: 0 14px 32px rgba(245, 158, 11, 0.4);
     }
+
+    /* ===== HERO 3D-сцена ===== */
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 52px 52px;
+      -webkit-mask-image: radial-gradient(ellipse at 60% 45%, #000 20%, transparent 72%);
+      mask-image: radial-gradient(ellipse at 60% 45%, #000 20%, transparent 72%);
+    }
+    .orb {
+      border-radius: 9999px;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+    .orb-accent {
+      background: rgba(245, 158, 11, 0.32);
+      animation: orbFloat 13s ease-in-out infinite;
+    }
+    .orb-blue {
+      background: rgba(42, 80, 128, 0.6);
+      animation: orbFloat 16s ease-in-out infinite reverse;
+    }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, -30px) scale(1.08); }
+    }
+    .text-gradient {
+      background: linear-gradient(92deg, #FCD34D 0%, #F59E0B 55%, #FB923C 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-scene { perspective: 1400px; }
+    .tilt-layer {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.12s ease-out;
+    }
+    .glass-card {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow:
+        0 50px 90px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 1px 0 rgba(255, 255, 255, 0.25) inset;
+    }
+    .chip {
+      background: rgba(11, 31, 58, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    .float-a { animation: floatY 6s ease-in-out infinite; }
+    .float-b { animation: floatY 7.5s ease-in-out -2s infinite; }
+    .float-c { animation: floatY 8.5s ease-in-out -4s infinite; }
+    .float-d { animation: floatY 7s ease-in-out -1s infinite; }
+    .scene-ring {
+      border: 1px dashed rgba(245, 158, 11, 0.35);
+      border-radius: 9999px;
+      animation: spinSlow 40s linear infinite;
+    }
+    .scene-ring-2 {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      animation: spinSlow 60s linear infinite reverse;
+    }
+    @keyframes spinSlow {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-in { animation: heroIn 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .hero-in-1 { animation-delay: 0.05s; }
+    .hero-in-2 { animation-delay: 0.18s; }
+    .hero-in-3 { animation-delay: 0.3s; }
+    .hero-in-4 { animation-delay: 0.42s; }
+    .hero-in-5 { animation-delay: 0.55s; }
+    .hero-in-scene { animation: heroIn 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s both; }
+    .progress-shimmer {
+      background: linear-gradient(90deg, #F59E0B, #FCD34D, #F59E0B);
+      background-size: 200% 100%;
+      animation: progressShimmer 2.4s linear infinite;
+    }
+    @keyframes progressShimmer {
+      to { background-position: -200% 0; }
+    }
   </style>
 </head>
 <body class="font-sans bg-slate-50 text-navy-900 antialiased">
@@ -148,11 +244,12 @@
         <!-- Кнопка «Зателефонувати» — замініть номер -->
         <a
           href="tel:+380671234567"
-          class="cta-btn inline-flex items-center gap-2 rounded-lg bg-accent px-3 py-2 text-sm font-bold text-navy-950 shadow-cta sm:px-4"
+          class="cta-btn inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-accent px-3 py-2 text-sm font-bold text-navy-950 shadow-cta sm:px-4"
         >
           <i class="fa-solid fa-phone text-xs" aria-hidden="true"></i>
-          <span class="hidden sm:inline">Зателефонувати</span>
-          <span class="font-semibold">+38 (067) 123-45-67</span>
+          <span class="sm:hidden">Дзвінок</span>
+          <span class="hidden md:inline">Зателефонувати</span>
+          <span class="hidden font-semibold sm:inline">+38 (067) 123-45-67</span>
         </a>
 
         <!-- Мобільне меню -->
@@ -185,53 +282,216 @@
       Фонове зображення: Unsplash (інструменти / ремонт).
       Можна замінити URL на своє фото.
     -->
-    <section
-      class="relative min-h-[100svh] overflow-hidden bg-navy-950 bg-cover bg-center"
-      style="background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&amp;fit=crop&amp;w=1920&amp;q=80');"
-    >
+    <section id="hero" class="relative min-h-[100svh] overflow-hidden bg-navy-950">
+      <!-- Фонові шари: фото, затемнення, сітка, світлові плями -->
+      <div
+        class="absolute inset-0 bg-cover bg-center opacity-40"
+        style="background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&amp;fit=crop&amp;w=1920&amp;q=80');"
+      ></div>
       <div class="hero-overlay absolute inset-0"></div>
-      <div class="hero-glow pointer-events-none absolute inset-0"></div>
+      <div class="hero-grid absolute inset-0"></div>
+      <div class="orb orb-blue absolute -right-32 -top-40 h-[560px] w-[560px]"></div>
+      <div class="orb orb-accent absolute -left-40 bottom-0 h-[460px] w-[460px]"></div>
 
-      <div class="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 sm:justify-center sm:px-6 sm:pb-20 sm:pt-24 lg:px-8">
-        <!-- Бренд як сильний сигнал першого екрана -->
-        <p class="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">
-          МайстерПро
-        </p>
+      <div class="relative mx-auto grid min-h-[100svh] max-w-6xl items-center gap-14 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-20 lg:pt-24 lg:px-8">
 
-        <!-- Заголовок — основний офер -->
-        <h1 class="max-w-3xl font-display text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-          Професійний ремонт і чоловік на годину
-        </h1>
+        <!-- ЛІВА КОЛОНКА: текст і CTA -->
+        <div>
+          <!-- Бейдж статусу -->
+          <div class="hero-in hero-in-1 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold text-white/85 backdrop-blur">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+            </span>
+            Майстри на зв’язку · Київ та область
+          </div>
 
-        <!-- Підзаголовок -->
-        <p class="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-          Швидко усунемо поломку або зробимо дрібний ремонт у квартирі.
-          Працюємо акуратно, з гарантією та прозорим кошторисом до початку робіт.
-        </p>
+          <!-- Заголовок — основний офер -->
+          <h1 class="hero-in hero-in-2 mt-6 max-w-2xl font-display text-[2.35rem] font-bold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
+            Професійний ремонт і
+            <span class="text-gradient">чоловік на годину</span>
+          </h1>
 
-        <!-- CTA-група -->
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <a
-            href="#contact"
-            class="cta-btn inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-7 py-3.5 text-base font-bold text-navy-950 shadow-cta"
-          >
-            Викликати майстра
-            <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
-          </a>
-          <a
-            href="tel:+380671234567"
-            class="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/5 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition hover:border-accent hover:text-accent"
-          >
-            <i class="fa-solid fa-phone" aria-hidden="true"></i>
-            Зателефонувати зараз
-          </a>
+          <!-- Підзаголовок -->
+          <p class="hero-in hero-in-3 mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
+            Швидко усунемо поломку або зробимо дрібний ремонт у квартирі.
+            Працюємо акуратно, з гарантією та прозорим кошторисом до початку робіт.
+          </p>
+
+          <!-- CTA-група -->
+          <div class="hero-in hero-in-4 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a
+              href="#contact"
+              class="cta-btn inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-7 py-4 text-base font-bold text-navy-950 shadow-cta"
+            >
+              Викликати майстра
+              <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+            </a>
+            <a
+              href="tel:+380671234567"
+              class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-7 py-4 text-base font-semibold text-white backdrop-blur-sm transition hover:border-accent hover:text-accent"
+            >
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              +38 (067) 123-45-67
+            </a>
+          </div>
+
+          <!-- Статистика довіри -->
+          <dl class="hero-in hero-in-5 mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-6">
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-white/50">Приїзд</dt>
+              <dd class="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">45 <span class="text-base font-semibold text-accent">хв</span></dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-white/50">Гарантія</dt>
+              <dd class="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">12 <span class="text-base font-semibold text-accent">міс</span></dd>
+            </div>
+            <div>
+              <dt class="text-xs uppercase tracking-wider text-white/50">Рейтинг</dt>
+              <dd class="mt-1 font-display text-2xl font-bold text-white sm:text-3xl">4.9 <span class="text-base font-semibold text-accent">★</span></dd>
+            </div>
+          </dl>
         </div>
 
-        <!-- Короткий рядок довіри під CTA -->
-        <p class="mt-6 text-sm text-white/60">
-          Виїзд по Києву · Оцінка безкоштовно · Працюємо щодня з 8:00 до 22:00
-        </p>
+        <!-- ПРАВА КОЛОНКА: 3D-сцена (карточка заявки + плаваючі бейджі) -->
+        <div class="hero-in-scene hero-scene relative mx-auto h-[600px] w-full max-w-md lg:h-[580px] lg:max-w-none" data-tilt-scene>
+          <!-- Декоративні кільця -->
+          <div class="scene-ring absolute left-1/2 top-1/2 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2"></div>
+          <div class="scene-ring-2 absolute left-1/2 top-1/2 h-[118%] w-[118%] -translate-x-1/2 -translate-y-1/2"></div>
+
+          <!-- Головна картка: активна заявка -->
+          <div class="absolute left-1/2 top-1/2 w-[88%] max-w-[380px] -translate-x-1/2 -translate-y-1/2">
+            <div class="tilt-layer" data-depth="16" data-rx="7" data-ry="-13">
+              <div class="glass-card rounded-[1.6rem] p-5 sm:p-6">
+                <!-- Шапка картки -->
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.2em] text-white/50">Заявка</p>
+                    <p class="mt-0.5 font-display text-lg font-semibold text-white">#2481</p>
+                  </div>
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-300">
+                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                    Майстер у дорозі
+                  </span>
+                </div>
+
+                <!-- Послуга -->
+                <div class="mt-5 flex items-center gap-4 rounded-2xl bg-white/5 p-4">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent text-navy-950">
+                    <i class="fa-solid fa-faucet-drip text-lg" aria-hidden="true"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <p class="truncate font-semibold text-white">Сантехніка · заміна змішувача</p>
+                    <p class="mt-0.5 text-sm text-white/55">Сьогодні, 14:30 · вул. Хрещатик</p>
+                  </div>
+                </div>
+
+                <!-- Майстер -->
+                <div class="mt-4 flex items-center gap-3">
+                  <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-navy-600 to-navy-800 font-display text-sm font-bold text-white ring-2 ring-accent/60">
+                    СК
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-semibold text-white">Сергій Коваленко</p>
+                    <p class="text-xs text-white/55">Сантехнік · 312 виконаних робіт</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-display text-lg font-bold text-accent">4.9</p>
+                    <p class="text-[10px] uppercase tracking-wider text-white/45">рейтинг</p>
+                  </div>
+                </div>
+
+                <!-- Прогрес прибуття -->
+                <div class="mt-5">
+                  <div class="flex items-center justify-between text-xs text-white/60">
+                    <span>Прибуде через</span>
+                    <span class="font-semibold text-white">~18 хв</span>
+                  </div>
+                  <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
+                    <div class="progress-shimmer h-full w-[68%] rounded-full"></div>
+                  </div>
+                </div>
+
+                <!-- Підсумок -->
+                <div class="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
+                  <div>
+                    <p class="text-xs text-white/50">Кошторис</p>
+                    <p class="font-display text-xl font-bold text-white">850 ₴</p>
+                  </div>
+                  <span class="inline-flex items-center gap-1.5 rounded-lg bg-white/8 px-3 py-1.5 text-xs font-semibold text-white/85">
+                    <i class="fa-solid fa-shield-halved text-accent" aria-hidden="true"></i>
+                    Гарантія 12 міс
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Плаваючий бейдж: Електрика -->
+          <div class="absolute -left-2 top-[1%] sm:left-0 sm:top-[9%]">
+            <div class="tilt-layer" data-depth="42">
+              <div class="float-a chip flex items-center gap-3 rounded-2xl px-4 py-3">
+                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                  <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p class="text-sm font-semibold text-white">Електрика</p>
+                  <p class="text-[11px] text-white/55">від 350 ₴</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Плаваючий бейдж: інструмент -->
+          <div class="absolute right-0 top-[0%] sm:-right-2 sm:top-[4%]">
+            <div class="tilt-layer" data-depth="34">
+              <div class="float-b chip flex h-14 w-14 items-center justify-center rounded-2xl text-accent">
+                <i class="fa-solid fa-screwdriver-wrench text-xl" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Плаваючий бейдж: відгуки -->
+          <div class="absolute -right-2 bottom-[13%] sm:right-0">
+            <div class="tilt-layer" data-depth="48">
+              <div class="float-c chip flex items-center gap-3 rounded-2xl px-4 py-3">
+                <div class="flex -space-x-2">
+                  <span class="h-8 w-8 rounded-full border-2 border-navy-900 bg-gradient-to-br from-amber-300 to-orange-500"></span>
+                  <span class="h-8 w-8 rounded-full border-2 border-navy-900 bg-gradient-to-br from-sky-300 to-blue-600"></span>
+                  <span class="h-8 w-8 rounded-full border-2 border-navy-900 bg-gradient-to-br from-emerald-300 to-teal-600"></span>
+                </div>
+                <div>
+                  <p class="flex items-center gap-1 text-sm font-semibold text-white">
+                    <i class="fa-solid fa-star text-xs text-accent" aria-hidden="true"></i> 4.9
+                  </p>
+                  <p class="text-[11px] text-white/55">1 200+ відгуків</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Плаваючий бейдж: приїзд -->
+          <div class="absolute left-0 bottom-[6%] sm:-left-3">
+            <div class="tilt-layer" data-depth="30">
+              <div class="float-d chip flex items-center gap-3 rounded-2xl px-4 py-3">
+                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-300">
+                  <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p class="text-sm font-semibold text-white">Приїзд за 45 хв</p>
+                  <p class="text-[11px] text-white/55">по всьому Києву</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Підказка скролу -->
+      <a href="#services" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/40 transition hover:text-accent lg:flex" aria-label="Прокрутити до послуг">
+        <span>Послуги</span>
+        <span class="h-8 w-px bg-gradient-to-b from-white/40 to-transparent"></span>
+      </a>
     </section>
 
     <!-- ========== ПОСЛУГИ ========== -->
@@ -584,6 +844,49 @@
 
     // --- Рік у копірайті ---
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --- 3D-параллакс hero-сцени (реагує на рух миші, з плавною інерцією) ---
+    (() => {
+      const hero = document.getElementById('hero');
+      const scene = document.querySelector('[data-tilt-scene]');
+      if (!hero || !scene) return;
+
+      const layers = Array.from(scene.querySelectorAll('.tilt-layer'));
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Базовий нахил головної картки — щоб 3D було видно і на статичному скріншоті
+      const applyTransform = (x, y) => {
+        layers.forEach((layer) => {
+          const depth = parseFloat(layer.dataset.depth || '20');
+          const baseRx = parseFloat(layer.dataset.rx || '0');
+          const baseRy = parseFloat(layer.dataset.ry || '0');
+          layer.style.transform =
+            `translate3d(${(-x * depth).toFixed(2)}px, ${(-y * depth).toFixed(2)}px, 0) ` +
+            `rotateX(${(baseRx - y * 10).toFixed(2)}deg) rotateY(${(baseRy + x * 12).toFixed(2)}deg)`;
+        });
+      };
+
+      applyTransform(0, 0);
+      if (!finePointer || reducedMotion) return;
+
+      let targetX = 0, targetY = 0, curX = 0, curY = 0;
+
+      hero.addEventListener('mousemove', (event) => {
+        const rect = hero.getBoundingClientRect();
+        targetX = (event.clientX - rect.left) / rect.width - 0.5;
+        targetY = (event.clientY - rect.top) / rect.height - 0.5;
+      });
+      hero.addEventListener('mouseleave', () => { targetX = 0; targetY = 0; });
+
+      const loop = () => {
+        curX += (targetX - curX) * 0.07;
+        curY += (targetY - curY) * 0.07;
+        applyTransform(curX, curY);
+        requestAnimationFrame(loop);
+      };
+      loop();
+    })();
   </script>
 </body>
 </html>
