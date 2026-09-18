@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Професійний ремонт квартир та послуги «чоловік на годину». Приїзд за 45 хвилин, гарантія на роботи. Київ та область." />
+  <title>МайстерПро — ремонт і чоловік на годину</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              950: '#071526',
+              900: '#0B1F3A',
+              800: '#132A4A',
+              700: '#1B3A5F',
+              600: '#2A5080',
+            },
+            accent: {
+              DEFAULT: '#F59E0B',
+              hover: '#E08A00',
+              soft: '#FEF3C7',
+            },
+          },
+          fontFamily: {
+            display: ['"Unbounded"', 'sans-serif'],
+            sans: ['"Manrope"', 'sans-serif'],
+          },
+          boxShadow: {
+            cta: '0 12px 30px rgba(245, 158, 11, 0.35)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Ховаємо скролбар, прокрутка залишається */
+    html {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    html::-webkit-scrollbar {
+      display: none;
+    }
+    body {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Subtle entrance motion */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero atmosphere */
+    .hero-overlay {
+      background:
+        linear-gradient(105deg, rgba(7, 21, 38, 0.92) 0%, rgba(11, 31, 58, 0.78) 48%, rgba(11, 31, 58, 0.45) 100%),
+        linear-gradient(to top, rgba(7, 21, 38, 0.75), transparent 42%);
+    }
+
+    .hero-glow {
+      background: radial-gradient(circle at 70% 40%, rgba(245, 158, 11, 0.22), transparent 55%);
+      animation: glowPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: #F59E0B;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(11, 31, 58, 0.12);
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
+    .cta-btn {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(245, 158, 11, 0.4);
+    }
+  </style>
+</head>
+<body class="font-sans bg-slate-50 text-navy-900 antialiased">
+
+  <!-- ========== HEADER ========== -->
+  <!-- Змініть назву бренду та номер телефону тут -->
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy-950/90 backdrop-blur-md">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <!-- Логотип (текстом) -->
+      <a href="#top" class="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
+        Майстер<span class="text-accent">Про</span>
+      </a>
+
+      <!-- Десктоп-навігація -->
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Основна навігація">
+        <a href="#services" class="nav-link text-sm font-medium text-white/80 hover:text-white">Послуги</a>
+        <a href="#advantages" class="nav-link text-sm font-medium text-white/80 hover:text-white">Переваги</a>
+        <a href="#contact" class="nav-link text-sm font-medium text-white/80 hover:text-white">Контакти</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <!-- Кнопка «Зателефонувати» — замініть номер -->
+        <a
+          href="tel:+380671234567"
+          class="cta-btn inline-flex items-center gap-2 rounded-lg bg-accent px-3 py-2 text-sm font-bold text-navy-950 shadow-cta sm:px-4"
+        >
+          <i class="fa-solid fa-phone text-xs" aria-hidden="true"></i>
+          <span class="hidden sm:inline">Зателефонувати</span>
+          <span class="font-semibold">+38 (067) 123-45-67</span>
+        </a>
+
+        <!-- Мобільне меню -->
+        <button
+          id="menu-btn"
+          type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/20 text-white md:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Відкрити меню"
+        >
+          <i id="menu-icon" class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Випадаюче мобільне меню -->
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-navy-950 md:hidden">
+      <nav class="flex flex-col gap-1 px-4 py-3" aria-label="Мобільна навігація">
+        <a href="#services" class="mobile-link rounded-lg px-3 py-3 text-base font-medium text-white/90 hover:bg-white/5">Послуги</a>
+        <a href="#advantages" class="mobile-link rounded-lg px-3 py-3 text-base font-medium text-white/90 hover:bg-white/5">Переваги</a>
+        <a href="#contact" class="mobile-link rounded-lg px-3 py-3 text-base font-medium text-white/90 hover:bg-white/5">Контакти</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ========== HERO ========== -->
+    <!--
+      Фонове зображення: Unsplash (інструменти / ремонт).
+      Можна замінити URL на своє фото.
+    -->
+    <section
+      class="relative min-h-[100svh] overflow-hidden bg-navy-950 bg-cover bg-center"
+      style="background-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&amp;fit=crop&amp;w=1920&amp;q=80');"
+    >
+      <div class="hero-overlay absolute inset-0"></div>
+      <div class="hero-glow pointer-events-none absolute inset-0"></div>
+
+      <div class="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 sm:justify-center sm:px-6 sm:pb-20 sm:pt-24 lg:px-8">
+        <!-- Бренд як сильний сигнал першого екрана -->
+        <p class="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">
+          МайстерПро
+        </p>
+
+        <!-- Заголовок — основний офер -->
+        <h1 class="max-w-3xl font-display text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+          Професійний ремонт і чоловік на годину
+        </h1>
+
+        <!-- Підзаголовок -->
+        <p class="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+          Швидко усунемо поломку або зробимо дрібний ремонт у квартирі.
+          Працюємо акуратно, з гарантією та прозорим кошторисом до початку робіт.
+        </p>
+
+        <!-- CTA-група -->
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a
+            href="#contact"
+            class="cta-btn inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-7 py-3.5 text-base font-bold text-navy-950 shadow-cta"
+          >
+            Викликати майстра
+            <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+          </a>
+          <a
+            href="tel:+380671234567"
+            class="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/5 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-sm transition hover:border-accent hover:text-accent"
+          >
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            Зателефонувати зараз
+          </a>
+        </div>
+
+        <!-- Короткий рядок довіри під CTA -->
+        <p class="mt-6 text-sm text-white/60">
+          Виїзд по Києву · Оцінка безкоштовно · Працюємо щодня з 8:00 до 22:00
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== ПОСЛУГИ ========== -->
+    <section id="services" class="relative bg-slate-50 py-20 sm:py-24">
+      <!-- Легкий фоновий патерн -->
+      <div
+        class="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style="background-image: radial-gradient(#0B1F3A 1px, transparent 1px); background-size: 22px 22px;"
+      ></div>
+
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal max-w-2xl">
+          <p class="mb-3 text-sm font-bold uppercase tracking-widest text-accent">Що робимо</p>
+          <h2 class="font-display text-3xl font-bold text-navy-900 sm:text-4xl">Послуги для дому та квартири</h2>
+          <p class="mt-4 text-base leading-relaxed text-navy-700/80 sm:text-lg">
+            Від термінового виклику до планового ремонту — закриваємо побутові задачі під ключ.
+          </p>
+        </div>
+
+        <!-- Сітка карток послуг — тексти та іконки легко змінювати -->
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- Картка 1: Сантехніка -->
+          <article class="service-card reveal rounded-2xl border border-navy-900/10 bg-white p-6">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-accent">
+              <i class="fa-solid fa-faucet-drip text-lg" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display text-lg font-semibold text-navy-900">Сантехніка</h3>
+            <p class="mt-2 text-sm leading-relaxed text-navy-700/75">
+              Усунення протікань, заміна змішувачів, встановлення техніки та прочищення засорів.
+            </p>
+          </article>
+
+          <!-- Картка 2: Електрика -->
+          <article class="service-card reveal rounded-2xl border border-navy-900/10 bg-white p-6" style="transition-delay: 80ms;">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-accent">
+              <i class="fa-solid fa-bolt text-lg" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display text-lg font-semibold text-navy-900">Електрика</h3>
+            <p class="mt-2 text-sm leading-relaxed text-navy-700/75">
+              Розетки, вимикачі, люстри, заміна проводки та діагностика короткого замикання.
+            </p>
+          </article>
+
+          <!-- Картка 3: Збирання меблів -->
+          <article class="service-card reveal rounded-2xl border border-navy-900/10 bg-white p-6" style="transition-delay: 160ms;">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-accent">
+              <i class="fa-solid fa-screwdriver-wrench text-lg" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display text-lg font-semibold text-navy-900">Збирання меблів</h3>
+            <p class="mt-2 text-sm leading-relaxed text-navy-700/75">
+              Збирання шаф, кухонь і техніки JYSK / Епіцентр. Навішування полиць і карнизів.
+            </p>
+          </article>
+
+          <!-- Картка 4: Оздоблення -->
+          <article class="service-card reveal rounded-2xl border border-navy-900/10 bg-white p-6" style="transition-delay: 240ms;">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-accent">
+              <i class="fa-solid fa-paint-roller text-lg" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display text-lg font-semibold text-navy-900">Оздоблення</h3>
+            <p class="mt-2 text-sm leading-relaxed text-navy-700/75">
+              Фарбування, поклейка шпалер, укладання ламінату та дрібний косметичний ремонт.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ПЕРЕВАГИ ========== -->
+    <section id="advantages" class="relative overflow-hidden bg-navy-900 py-20 text-white sm:py-24">
+      <div class="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-accent/20 blur-3xl"></div>
+      <div class="pointer-events-none absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-accent/10 blur-3xl"></div>
+
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal max-w-2xl">
+          <p class="mb-3 text-sm font-bold uppercase tracking-widest text-accent">Чому ми</p>
+          <h2 class="font-display text-3xl font-bold sm:text-4xl">Надійно, швидко і без сюрпризів</h2>
+          <p class="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
+            Три причини, через які до нас повертаються і рекомендують сусідам.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-10 sm:grid-cols-3 sm:gap-8">
+
+          <!-- Перевага 1 -->
+          <div class="reveal border-t border-accent/40 pt-6">
+            <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-navy-950">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold">Гарантія</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/70">
+              Даємо письмову гарантію на виконані роботи та використані матеріали.
+            </p>
+          </div>
+
+          <!-- Перевага 2 -->
+          <div class="reveal border-t border-accent/40 pt-6" style="transition-delay: 100ms;">
+            <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-navy-950">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold">Приїзд за 45 хвилин</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/70">
+              Диспетчер на зв’язку цілодобово — майстер виїжджає у зручний для вас час.
+            </p>
+          </div>
+
+          <!-- Перевага 3 -->
+          <div class="reveal border-t border-accent/40 pt-6" style="transition-delay: 200ms;">
+            <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-navy-950">
+              <i class="fa-solid fa-broom" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display text-xl font-semibold">Чистота</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white/70">
+              Працюємо в бахілах, прибираємо за собою та бережемо ваш інтер’єр.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Проміжний CTA -->
+        <div class="reveal mt-14 flex flex-col items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div>
+            <p class="font-display text-xl font-semibold sm:text-2xl">Потрібен майстер сьогодні?</p>
+            <p class="mt-1 text-sm text-white/65">Залиште заявку — передзвонимо за 5 хвилин.</p>
+          </div>
+          <a
+            href="#contact"
+            class="cta-btn inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-bold text-navy-950 shadow-cta"
+          >
+            Залишити заявку
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FOOTER / КОНТАКТИ + ФОРМА ========== -->
+    <footer id="contact" class="bg-slate-100 pt-20 sm:pt-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+
+          <!-- Контакти — замініть дані на свої -->
+          <div class="reveal">
+            <p class="mb-3 text-sm font-bold uppercase tracking-widest text-accent">Контакти</p>
+            <h2 class="font-display text-3xl font-bold text-navy-900 sm:text-4xl">Зв’яжіться з нами</h2>
+            <p class="mt-4 max-w-md text-base leading-relaxed text-navy-700/75">
+              Розкажіть про задачу — підкажемо строк і вартість до виїзду майстра.
+            </p>
+
+            <ul class="mt-8 space-y-5">
+              <li class="flex items-start gap-4">
+                <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-accent">
+                  <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-navy-700/60">Телефон</p>
+                  <a href="tel:+380671234567" class="text-lg font-bold text-navy-900 hover:text-accent">+38 (067) 123-45-67</a>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-accent">
+                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-navy-700/60">Email</p>
+                  <a href="mailto:hello@masterpro.ua" class="text-lg font-bold text-navy-900 hover:text-accent">hello@masterpro.ua</a>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-accent">
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-navy-700/60">Зона виїзду</p>
+                  <p class="text-lg font-bold text-navy-900">Київ та область, до 40 км</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-accent">
+                  <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-navy-700/60">Графік роботи</p>
+                  <p class="text-lg font-bold text-navy-900">Щодня, 8:00–22:00</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Форма заявки (демо: без бекенду, показує підтвердження) -->
+          <div class="reveal rounded-2xl border border-navy-900/10 bg-white p-6 shadow-sm sm:p-8" style="transition-delay: 100ms;">
+            <h3 class="font-display text-xl font-semibold text-navy-900">Форма заявки</h3>
+            <p class="mt-2 text-sm text-navy-700/70">Залиште контакти — передзвонимо і узгодимо час візиту.</p>
+
+            <form id="lead-form" class="mt-6 space-y-4" novalidate>
+              <!-- Поле: Ім’я -->
+              <div>
+                <label for="name" class="mb-1.5 block text-sm font-semibold text-navy-900">Ваше ім’я</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  placeholder="Олександр"
+                  class="w-full rounded-lg border border-navy-900/15 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                />
+              </div>
+
+              <!-- Поле: Телефон -->
+              <div>
+                <label for="phone" class="mb-1.5 block text-sm font-semibold text-navy-900">Телефон</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  autocomplete="tel"
+                  placeholder="+38 (___) ___-__-__"
+                  class="w-full rounded-lg border border-navy-900/15 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                />
+              </div>
+
+              <!-- Поле: Послуга -->
+              <div>
+                <label for="service" class="mb-1.5 block text-sm font-semibold text-navy-900">Послуга</label>
+                <select
+                  id="service"
+                  name="service"
+                  class="w-full rounded-lg border border-navy-900/15 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                >
+                  <option>Сантехніка</option>
+                  <option>Електрика</option>
+                  <option>Збирання меблів</option>
+                  <option>Оздоблення</option>
+                  <option>Інше</option>
+                </select>
+              </div>
+
+              <!-- Поле: Коментар -->
+              <div>
+                <label for="message" class="mb-1.5 block text-sm font-semibold text-navy-900">Коротко про задачу</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="3"
+                  placeholder="Наприклад: тече кран на кухні"
+                  class="w-full resize-y rounded-lg border border-navy-900/15 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/30"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="cta-btn inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3.5 text-base font-bold text-navy-950 shadow-cta"
+              >
+                Надіслати заявку
+                <i class="fa-solid fa-paper-plane text-sm" aria-hidden="true"></i>
+              </button>
+
+              <p id="form-status" class="hidden text-center text-sm font-medium text-emerald-700" role="status"></p>
+              <p class="text-center text-xs text-navy-700/50">
+                Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <!-- Нижня смуга копірайту -->
+        <div class="mt-16 flex flex-col items-start justify-between gap-3 border-t border-navy-900/10 py-6 text-sm text-navy-700/60 sm:flex-row sm:items-center">
+          <p>© <span id="year"></span> МайстерПро. Усі права захищено.</p>
+          <p>Ремонт квартир · Чоловік на годину · Київ</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ========== VANILLA JS ========== -->
+  <script>
+    // --- Мобільне меню ---
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+      menuBtn.setAttribute('aria-label', isOpen ? 'Відкрити меню' : 'Закрити меню');
+      menuIcon.classList.toggle('fa-bars', isOpen);
+      menuIcon.classList.toggle('fa-xmark', !isOpen);
+    });
+
+    // Закриття меню по кліку на посилання
+    document.querySelectorAll('.mobile-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Відкрити меню');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-xmark');
+      });
+    });
+
+    // --- Плавний скрол для якірних посилань (з урахуванням fixed header) ---
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (event) => {
+        const id = anchor.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+
+        event.preventDefault();
+        const headerOffset = 72;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+
+    // --- Поява блоків при скролі ---
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+    revealEls.forEach((el) => revealObserver.observe(el));
+
+    // --- Демо-відправка форми (без сервера) ---
+    const form = document.getElementById('lead-form');
+    const status = document.getElementById('form-status');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      status.textContent = 'Заявку прийнято! Ми передзвонимо найближчим часом.';
+      status.classList.remove('hidden');
+      form.reset();
+    });
+
+    // --- Рік у копірайті ---
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
